@@ -3,17 +3,17 @@ import { Subscription } from 'rxjs';
 import { DatepickerService } from '../datepicker.service';
 
 @Component({
-  selector: 'days-view',
+  selector: 'ang-days-view',
   templateUrl: './days-view.component.html',
   styleUrls: ['./days-view.component.scss', '../assets/shared.scss']
 })
 export class DaysViewComponent implements OnInit, OnDestroy {
-  private _nextSub: Subscription;
-  private _prevSub: Subscription;
+  private nextSub: Subscription;
+  private prevSub: Subscription;
 
   @Input() date: Date;
   @Input() locale: string;
-  @Output() onDaySelected = new EventEmitter<number>();
+  @Output() daySelected = new EventEmitter<number>();
 
   public daysHeaders: Array<string> = new Array<string>();
   public days: Array<number>;
@@ -21,8 +21,8 @@ export class DaysViewComponent implements OnInit, OnDestroy {
   public afterDays: Array<number>;
 
   constructor(public picker: DatepickerService) {
-    this._nextSub = this.picker.onNext.subscribe(this.next());
-    this._prevSub = this.picker.onPrevious.subscribe(this.previous());
+    this.nextSub = this.picker.onNext.subscribe(this.next());
+    this.prevSub = this.picker.onPrevious.subscribe(this.previous());
   }
 
   public afterDaySelect(day: number): void {
@@ -44,30 +44,30 @@ export class DaysViewComponent implements OnInit, OnDestroy {
   }
 
   public selectDay(day: number): void {
-    this.onDaySelected.emit(day);
+    this.daySelected.emit(day);
   }
 
   private previous(): () => void {
     return () => {
-      let year = this.date.getFullYear();
+      const year = this.date.getFullYear();
       if (year === 0) {
         return;
       }
 
-      let month = this.date.getMonth();
+      const month = this.date.getMonth();
       if (month === 0) {
-        this.date.setFullYear(year - 1, 11)
+        this.date.setFullYear(year - 1, 11);
       } else {
         this.date.setMonth(month - 1);
       }
       this.setHeaderTitle();
       this.setTotalDaysInMonth();
-    }
+    };
   }
 
   private next(): () => void {
     return () => {
-      let month = this.date.getMonth();
+      const month = this.date.getMonth();
       if (month === 11) {
         this.date.setFullYear(this.date.getFullYear() + 1, 0);
       } else {
@@ -75,11 +75,11 @@ export class DaysViewComponent implements OnInit, OnDestroy {
       }
       this.setHeaderTitle();
       this.setTotalDaysInMonth();
-    }
+    };
   }
 
   private setHeaderTitle(): void {
-    let options = { month: 'short', year: 'numeric' }
+    const options = { month: 'short', year: 'numeric' };
     this.picker.header = this.date.toLocaleDateString(this.locale, options);
   }
 
@@ -88,8 +88,8 @@ export class DaysViewComponent implements OnInit, OnDestroy {
     date.setMonth(6);
     date.setFullYear(2018);
     date.setDate(1);
-    this.daysHeaders.push(date.toLocaleDateString(this.locale, { weekday: 'short' }))
-    
+    this.daysHeaders.push(date.toLocaleDateString(this.locale, { weekday: 'short' }));
+
     for (let i = 0; i < 6; i++) {
       date.setDate(date.getDate() + 1);
       this.daysHeaders.push(date.toLocaleDateString(this.locale, { weekday: 'short' }));
@@ -115,7 +115,7 @@ export class DaysViewComponent implements OnInit, OnDestroy {
     const totalDays = this.getTotalDaysInMonth(bufferDate);
 
     this.preDays = new Array<number>();
-    for(let i = 0; i < loopCondition; i++) {
+    for (let i = 0; i < loopCondition; i++) {
       this.preDays.unshift(totalDays - i);
     }
   }
@@ -123,21 +123,21 @@ export class DaysViewComponent implements OnInit, OnDestroy {
   private shiftAfterDays(): void {
     const bufferDate = new Date(this.date.getFullYear(), this.date.getMonth(), this.days[this.days.length - 1]);
     const loopCondition = 6 - bufferDate.getDay();
-    
+
     this.afterDays = new Array<number>();
     for (let i = 0; i < loopCondition; i++) {
       this.afterDays.push(i + 1);
     }
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.initDaysHeaders();
     this.setTotalDaysInMonth();
     this.setHeaderTitle();
   }
 
   ngOnDestroy(): void {
-    this._nextSub.unsubscribe();
-    this._prevSub.unsubscribe();
+    this.nextSub.unsubscribe();
+    this.prevSub.unsubscribe();
   }
 }

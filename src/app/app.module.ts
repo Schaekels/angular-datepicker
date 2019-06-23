@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DatepickerModule } from 'projects/datepicker/src/datepicker.module';
 import { FormsModule } from '@angular/forms';
+import { DatepickerModule } from 'projects/angular-datepicker/src/lib/datepicker.module';
 
 @NgModule({
   declarations: [

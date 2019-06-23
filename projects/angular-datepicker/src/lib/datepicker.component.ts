@@ -1,9 +1,8 @@
 import { Component, OnInit, Input, Optional, forwardRef, Output, EventEmitter } from '@angular/core';
-import { NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DatepickerService, states } from './datepicker.service';
 
 @Component({
-  selector: 'date-picker',
+  selector: 'ang-date-picker',
   templateUrl: 'datepicker.component.html',
   styleUrls: [ 'datepicker.component.scss', 'assets/shared.scss' ],
   providers: [
@@ -15,10 +14,10 @@ export class DatepickerComponent implements OnInit {
   public state: states;
   public date = new Date();
 
-  @Input() locale: string = 'default';
-  @Output() onDateSelected = new EventEmitter<Date>();
+  @Input() locale = 'default';
+  @Output() dateSelected = new EventEmitter<Date>();
 
-  constructor(public picker: DatepickerService) { 
+  constructor(public picker: DatepickerService) {
   }
 
   public headerClick(): void {
@@ -37,7 +36,7 @@ export class DatepickerComponent implements OnInit {
 
   public daySelected(day: number): void {
     this.date.setDate(day);
-    this.onDateSelected.emit(this.date);
+    this.dateSelected.emit(this.date);
   }
 
   private goToNextState(): void {

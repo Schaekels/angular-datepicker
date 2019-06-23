@@ -3,36 +3,36 @@ import { DatepickerService } from '../datepicker.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'year-view',
+  selector: 'ang-year-view',
   templateUrl: 'year-view.component.html',
   styleUrls: ['year-view.component.scss', '../assets/shared.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class YearViewComponent implements OnInit, OnDestroy {
-  private _nextSub: Subscription;
-  private _prevSub: Subscription;
+  private nextSub: Subscription;
+  private prevSub: Subscription;
 
   @Input() date: Date;
-  @Output() onYearSelected = new EventEmitter<number>();
+  @Output() yearSelected = new EventEmitter<number>();
 
   public years: Array<number>;
 
-  constructor(public picker: DatepickerService, private _cdr: ChangeDetectorRef) {
-    this._nextSub = this.picker.onNext.subscribe(this.next());
-    this._prevSub = this.picker.onPrevious.subscribe(this.previous());
+  constructor(public picker: DatepickerService, private cdr: ChangeDetectorRef) {
+    this.nextSub = this.picker.onNext.subscribe(this.next());
+    this.prevSub = this.picker.onPrevious.subscribe(this.previous());
    }
 
   public selectYear(year: number): void {
-    this.onYearSelected.emit(year);
+    this.yearSelected.emit(year);
   }
 
   private next(): () => void {
     return () => {
       this.constructYearsArray(this.years[this.years.length - 1] + 1);
       this.setHeaderTitle();
-      this._cdr.markForCheck();
-    }
+      this.cdr.markForCheck();
+    };
   }
 
   private previous(): () => void {
@@ -43,8 +43,8 @@ export class YearViewComponent implements OnInit, OnDestroy {
       }
       this.constructYearsArray(year);
       this.setHeaderTitle();
-      this._cdr.markForCheck();
-    }
+      this.cdr.markForCheck();
+    };
   }
 
   private calculateYearRange(): void {
@@ -65,7 +65,7 @@ export class YearViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._nextSub.unsubscribe();
-    this._prevSub.unsubscribe();
+    this.nextSub.unsubscribe();
+    this.prevSub.unsubscribe();
   }
 }

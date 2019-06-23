@@ -4,7 +4,7 @@
   <i class='material-icon-right hover-effect' (click)='picker.onNext.next()'></i>
 </div>
 <div class='snek-card-body'>
-  <year-view [date]='date' (onYearSelected)='yearSelected($event)' *ngIf='state === 0'></year-view>
-  <month-view [date]='date' [locale]='locale' (onMonthSelected)='monthSelected($event)' *ngIf='state === 1'></month-view>
-  <days-view [date]='date' [locale]='locale' (onDaySelected)='daySelected($event)' *ngIf='state === 2'></days-view>
+  <ang-year-view [date]='date' (yearSelected)='yearSelected($event)' *ngIf='state === 0'></ang-year-view>
+  <ang-month-view [date]='date' [locale]='locale' (monthSelected)='monthSelected($event)' *ngIf='state === 1'></ang-month-view>
+  <ang-days-view [date]='date' [locale]='locale' (daySelected)='daySelected($event)' *ngIf='state === 2'></ang-days-view>
 </div>
