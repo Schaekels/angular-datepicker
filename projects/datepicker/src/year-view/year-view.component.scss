@@ -1,0 +1,20 @@
+.year-view {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 220px;
+  justify-content: space-between;
+  // flex-direction: row;
+}
+
+.year-item {
+  display: flex;
+  width: 22%;
+  justify-content: center;
+  text-align: center;
+  height: 22%;
+  align-items: center;
+  // flex-direction: row;
+
+}

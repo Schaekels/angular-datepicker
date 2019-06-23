@@ -1,0 +1,16 @@
+.month-view {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 180px;
+  justify-content: space-between;
+}
+
+.month-item {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  width: 28%;
+  height: 22%;
+}

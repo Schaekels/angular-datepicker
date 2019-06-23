@@ -1,0 +1,11 @@
+<div class='days-container'>
+  <div class='days-header'>
+    <div class='day-weekday text-capitalize' *ngFor='let head of daysHeaders'>{{ head }}</div>
+  </div>
+  
+  <div class='days-body text-bold'>
+    <div *ngFor='let day of preDays' class='pre-day-item hover-effect' (click)='preDaySelect(day)'>{{ day }}</div>
+    <div *ngFor='let day of days' class='day-item hover-effect' [class.active]='day === date.getDate()' (click)='selectDay(day)'>{{ day }}</div>
+    <div *ngFor='let day of afterDays' class='pre-day-item hover-effect' (click)='afterDaySelect(day)'>{{ day }}</div>
+  </div>
+</div>

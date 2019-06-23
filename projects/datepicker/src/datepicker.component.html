@@ -1,0 +1,10 @@
+<div class='snek-card-header'>
+  <i class='material-icon-left hover-effect' (click)='picker.onPrevious.next()'></i>
+  <h4 class='snek-card-title text-capitalize' (click)='headerClick()' [class.header-hover-effect]='state !== 0'>{{ picker.header }}</h4>
+  <i class='material-icon-right hover-effect' (click)='picker.onNext.next()'></i>
+</div>
+<div class='snek-card-body'>
+  <year-view [date]='date' (onYearSelected)='yearSelected($event)' *ngIf='state === 0'></year-view>
+  <month-view [date]='date' [locale]='locale' (onMonthSelected)='monthSelected($event)' *ngIf='state === 1'></month-view>
+  <days-view [date]='date' [locale]='locale' (onDaySelected)='daySelected($event)' *ngIf='state === 2'></days-view>
+</div>

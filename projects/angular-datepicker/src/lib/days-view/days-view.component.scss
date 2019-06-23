@@ -1,0 +1,47 @@
+.days-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.days-header {
+  display: flex;
+  flex-direction: row;
+}
+
+.day-weekday {
+  width: 14.28%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #999;
+  padding-bottom: 5px;
+}
+
+.days-body {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.day-item {
+  @extend %item;
+}
+
+.pre-day-item {
+  @extend %item;
+  color: #DDD;
+}
+
+.pre-day-item:hover {
+  color: #DDD!important;
+}
+
+%item {
+  width: 14.28%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 32px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
