@@ -31,16 +31,14 @@
 .snek-card-body {
   padding: 20px;
   flex: 1 1 auto;
-  height: 234px;
+  height: 274px;
 }
 
 .material-icon-left {
-  background: url('./assets/arrow-left.svg');
   @extend %icon;
 }
 
 .material-icon-right {
-  background: url('./assets/arrow-right.svg');
   @extend %icon;
 }
 
@@ -51,5 +49,12 @@
   width: 24px;
   height: 24px;
   display: block;
-  background-size: 24px;
 }
+
+*, :after, :before {
+  box-sizing: border-box;
+}
+
+// *::before {
+//   box-sizing: border-box;
+// }

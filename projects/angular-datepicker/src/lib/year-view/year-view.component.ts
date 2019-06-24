@@ -37,7 +37,7 @@ export class YearViewComponent implements OnInit, OnDestroy {
 
   private previous(): () => void {
     return () => {
-      let year = this.years[0] - 20;
+      let year = this.years[0] - 16;
       if (year <= 0 ) {
         year = 0;
       }
