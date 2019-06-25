@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { DatepickerService } from '../datepicker.service';
 import { Subscription } from 'rxjs';
 
@@ -8,11 +8,22 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./month-view.component.scss', '../assets/shared.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MonthViewComponent implements OnInit, OnDestroy {
+export class MonthViewComponent implements OnDestroy {
   private nextSub: Subscription;
   private prevSub: Subscription;
+  private pDate: Date;
 
-  @Input() date: Date;
+  @Input()
+  set date(val: Date) {
+    this.pDate = val;
+    this.initializeDates();
+    this.setHeaderTitle();
+  }
+
+  get date(): Date {
+    return this.pDate;
+  }
+
   @Input() locale: string;
   @Output() monthSelected = new EventEmitter<number>();
 
@@ -64,11 +75,6 @@ export class MonthViewComponent implements OnInit, OnDestroy {
 
   private setHeaderTitle(): void {
     this.picker.header = this.date.getFullYear().toString();
-  }
-
-  ngOnInit(): void {
-    this.initializeDates();
-    this.setHeaderTitle();
   }
 
   ngOnDestroy(): void {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnDestroy, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DatepickerService } from '../datepicker.service';
 
@@ -7,11 +7,22 @@ import { DatepickerService } from '../datepicker.service';
   templateUrl: './days-view.component.html',
   styleUrls: ['./days-view.component.scss', '../assets/shared.scss']
 })
-export class DaysViewComponent implements OnInit, OnDestroy {
+export class DaysViewComponent implements OnDestroy {
   private nextSub: Subscription;
   private prevSub: Subscription;
+  private pDate: Date;
 
-  @Input() date: Date;
+  @Input()
+  set date(val: Date) {
+    this.pDate = val;
+    this.initDaysHeaders();
+    this.setTotalDaysInMonth();
+    this.setHeaderTitle();
+  }
+
+  get date(): Date {
+    return this.pDate;
+  }
   @Input() locale: string;
   @Output() daySelected = new EventEmitter<number>();
 
@@ -128,12 +139,6 @@ export class DaysViewComponent implements OnInit, OnDestroy {
     for (let i = 0; i < loopCondition; i++) {
       this.afterDays.push(i + 1);
     }
-  }
-
-  ngOnInit(): void {
-    this.initDaysHeaders();
-    this.setTotalDaysInMonth();
-    this.setHeaderTitle();
   }
 
   ngOnDestroy(): void {

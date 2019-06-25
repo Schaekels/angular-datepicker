@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Optional, forwardRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DatepickerService, states } from './datepicker.service';
 
 @Component({
@@ -12,8 +12,8 @@ import { DatepickerService, states } from './datepicker.service';
 
 export class DatepickerComponent implements OnInit {
   public state: states;
-  public date = new Date();
 
+  @Input() date = new Date();
   @Input() locale = 'default';
   @Output() dateSelected = new EventEmitter<Date>();
 

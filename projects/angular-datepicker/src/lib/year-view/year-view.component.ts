@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { DatepickerService } from '../datepicker.service';
 import { Subscription } from 'rxjs';
 
@@ -9,11 +9,22 @@ import { Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class YearViewComponent implements OnInit, OnDestroy {
+export class YearViewComponent implements OnDestroy {
   private nextSub: Subscription;
   private prevSub: Subscription;
+  private pDate: Date;
 
-  @Input() date: Date;
+  @Input()
+  set date(val: Date) {
+    this.pDate = val;
+    this.calculateYearRange();
+    this.setHeaderTitle();
+  }
+
+  get date(): Date {
+    return this.pDate;
+  }
+
   @Output() yearSelected = new EventEmitter<number>();
 
   public years: Array<number>;
@@ -57,11 +68,6 @@ export class YearViewComponent implements OnInit, OnDestroy {
 
   private setHeaderTitle(): void {
     this.picker.header = this.years[0] + ' - ' + this.years[this.years.length - 1];
-  }
-
-  ngOnInit() {
-    this.calculateYearRange();
-    this.setHeaderTitle();
   }
 
   ngOnDestroy() {
