@@ -27,7 +27,7 @@ export class MonthViewComponent implements OnDestroy {
   @Input() locale: string;
   @Output() monthSelected = new EventEmitter<number>();
 
-  public months: Array<Date> = new Array<Date>();
+  public months: Array<Date>;
 
   constructor(public picker: DatepickerService) {
     this.nextSub = this.picker.onNext.subscribe(this.next());
@@ -66,6 +66,7 @@ export class MonthViewComponent implements OnDestroy {
   }
 
   private initializeDates(): void {
+    this.months = new Array<Date>();
     for (let i = 0; i < 12; i++) {
       const date = new Date();
       date.setMonth(i, 1);

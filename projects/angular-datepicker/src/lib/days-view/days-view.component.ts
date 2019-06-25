@@ -26,7 +26,7 @@ export class DaysViewComponent implements OnDestroy {
   @Input() locale: string;
   @Output() daySelected = new EventEmitter<number>();
 
-  public daysHeaders: Array<string> = new Array<string>();
+  public daysHeaders: Array<string>;
   public days: Array<number>;
   public preDays: Array<number>;
   public afterDays: Array<number>;
@@ -95,6 +95,7 @@ export class DaysViewComponent implements OnDestroy {
   }
 
   private initDaysHeaders(): void {
+    this.daysHeaders = new Array<string>();
     const date = new Date();
     date.setMonth(6);
     date.setFullYear(2018);
